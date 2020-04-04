@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import routes from '../../routes';
+import { deleteChannel } from '../channels/channelsSlice';
 
 const messagesSlice = createSlice({
 	name: 'messages',
@@ -8,7 +9,7 @@ const messagesSlice = createSlice({
 	reducers: {
 		addMessage(state, action) {
 			const { attributes } = action.payload;
-			state.allMessages = [attributes, ...state.allMessages];
+			state.allMessages = [...state.allMessages, attributes];
 		},
 		MESSAGE_FETCH_REQUEST(state) {
 			state.fetchStatus = 'REQUEST';
@@ -18,6 +19,13 @@ const messagesSlice = createSlice({
 		},
 		MESSAGE_FETCH_FAILURE(state) {
 			state.fetchStatus = 'FAILURE';
+		},
+	},
+	extraReducers: {
+		[deleteChannel]: (state, action) => {
+			const { data } = action.payload;
+			const { id } = data;
+			state.allMessages = state.allMessages.filter((m) => m.channelId !== id);
 		},
 	},
 });
@@ -33,7 +41,7 @@ export default messagesSlice.reducer;
 const sendMessageToServer = async (data, id) => {
 	const route = routes.channelMessagesPath(id);
 	const reqBody = { data: { attributes: { ...data } } };
-	const response = await axios.post(route, reqBody);
+	await axios.post(route, reqBody);
 };
 
 export const fetchMessage = (data, id) => async (dispatch) => {

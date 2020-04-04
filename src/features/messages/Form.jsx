@@ -1,29 +1,30 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useDispatch, connect } from 'react-redux';
-import { Field, reduxForm, SubmissionError } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { fetchMessage } from './messagesSlice';
+import UserContext from '../../UserContext';
 
 const mapPropsToState = ({ currentChannelId }) => ({
 	currentChannelId,
 });
 
 const Form = (props) => {
+	const { handleSubmit, submitting, SubmissionError } = props;
 	const dispatch = useDispatch();
-
-	const { handleSubmit, submitting, pristine } = props;
+	const userName = useContext(UserContext);
 
 	const handleSubmitForm = async (values) => {
 		const time = new Date().toLocaleString();
 		const { reset, currentChannelId } = props;
 		const data = {
-			user: 'Evgeniy',
+			user: userName,
 			text: values.message,
 			time,
 		};
 		try {
 			await dispatch(fetchMessage(data, currentChannelId));
 		} catch (e) {
-			throw new SubmissionError({ _error: e.message });
+			throw new SubmissionError({ error: e.message });
 		}
 		reset();
 	};
@@ -31,11 +32,8 @@ const Form = (props) => {
 	return (
 		<form onSubmit={handleSubmit(handleSubmitForm)}>
 			<div className='form-group'>
-				<Field name='message' disabled={submitting} required component='textarea' type='text' />
+				<Field name='message' disabled={submitting} required component='input' type='text' />
 			</div>
-			<button type='submit' disabled={submitting || pristine} className='btn btn-primary'>
-				Send Message
-			</button>
 		</form>
 	);
 };

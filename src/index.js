@@ -4,6 +4,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 import '../assets/application.scss';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // import faker from 'faker';
 import gon from 'gon';

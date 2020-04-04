@@ -1,19 +1,26 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import { configureStore, createSlice } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import io from 'socket.io-client';
-import axios from 'axios';
 import { Provider } from 'react-redux';
+import cookie from 'js-cookie';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Channels from './features/channels/channels';
 import Form from './features/messages/Form';
 import MessagesList from './features/messages/MessagesList';
+import Modal from './features/modal/Modal';
 import rootReducer from './reducer';
-import { addChannel } from './features/channels/channelsSlice';
-import routes from './routes';
 import { addMessage } from './features/messages/messagesSlice';
+import { addChannel, renameChannel, deleteChannel } from './features/channels/channelsSlice';
+import { changeChannel } from './features/channels/channelIdSlice';
 import initState from './utils/initState';
+import createUserName from './utils/createUserName';
+import UserContext from './UserContext';
 
 export default (data) => {
+	const userName = cookie.get('userName') || createUserName();
+	cookie.set('userName', userName);
+
 	const preloadedState = initState(data);
 
 	const store = configureStore({
@@ -26,18 +33,27 @@ export default (data) => {
 		store.dispatch(addMessage({ attributes }));
 	});
 
+	socket.on('newChannel', ({ data: { attributes } }) => {
+		store.dispatch(addChannel({ attributes }));
+	});
+
+	socket.on('renameChannel', ({ data: { attributes } }) => {
+		store.dispatch(renameChannel({ attributes }));
+	});
+
+	socket.on('removeChannel', ({ data }) => {
+		store.dispatch(deleteChannel({ data }));
+	});
+
 	ReactDom.render(
 		<Provider store={store}>
-			<Channels />
-			<MessagesList />
-			<Form />
+			<UserContext.Provider value={userName}>
+				<Channels />
+				<MessagesList />
+				<Form />
+				<Modal />
+			</UserContext.Provider>
 		</Provider>,
 		document.getElementById('chat'),
 	);
-
-	// (async (text) => {
-	// 	const route = routes.channelMessagesPath(1);
-	// 	const reqBody = { data: { attributes: { text } } };
-	// 	const response = await axios.post(route, reqBody);
-	// })('Hello world');
 };
