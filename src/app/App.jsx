@@ -4,7 +4,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import io from 'socket.io-client';
 import { Provider } from 'react-redux';
 import cookie from 'js-cookie';
-import 'bootstrap/digit sst/css/bootstrap.min.css';
+// import 'bootstrap/digit sst/css/bootstrap.min.css';
 import Channels from '../features/channels/Channels';
 import { addChannel, renameChannel, deleteChannel } from '../features/channels/channelsSlice';
 import Form from '../features/messages/Form';
