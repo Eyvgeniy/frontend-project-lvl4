@@ -7,7 +7,6 @@ import channelAddState from '../features/channels/channelAddStateSlice';
 import channelRenameState from '../features/channels/channelRenameStateSlice';
 import channelRemoveState from '../features/channels/channelRemoveStateSlice';
 import modal from '../features/modal/modalsSliсe';
-// import messageFetchStatus from '../features/messages/messagesFetchSlice';
 
 export default combineReducers({
   messages,
@@ -18,5 +17,4 @@ export default combineReducers({
   channelRemoveState,
   modal,
   form: formReducer,
-  // messageFetchStatus,
 });

@@ -17,7 +17,7 @@ const appPath = path.join(__dirname, '..');
 const isDevelopment = !isProduction;
 
 const setUpViews = (app, options) => {
-  const domain = isDevelopment ? `http://localhost:8080` : '';
+  const domain = isDevelopment ? 'http://localhost:8080' : '';
   app.register(pointOfView, {
     engine: {
       pug: Pug,
