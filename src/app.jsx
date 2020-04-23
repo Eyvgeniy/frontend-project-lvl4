@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 import { Provider } from 'react-redux';
 import cookie from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Channels from './features/channels/channels';
+import Channels from './features/channels/Channels';
 import Form from './features/messages/Form';
 import MessagesList from './features/messages/MessagesList';
 import Modal from './features/modal/Modal';

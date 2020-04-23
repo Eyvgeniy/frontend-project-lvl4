@@ -1,5 +1,7 @@
 import React from 'react';
+import { ListGroup, Button, Nav } from 'react-bootstrap';
 import { connect, useDispatch } from 'react-redux';
+import cn from 'classnames';
 import { addChannel } from './channelsSlice';
 import { changeChannel } from './channelIdSlice';
 import { addNewChannel } from './channelAddStateSlice';
@@ -45,21 +47,32 @@ const Channels = ({ channels, changeChannel, currentChannel }) => {
 
   return (
     <>
-      <p>
-        <b>Channels List</b>
-      </p>
-      <ul className="list-unstyled">
-        {channels.map(({ id, name }) => (
-          <li key={id}>
-            <a href="#" onClick={changeCurrentChannel(id)}>
-              <b>{name}</b>
-            </a>
-          </li>
-        ))}
-      </ul>
-      <button type="button" className="btn btn-primary mr-1" onClick={showAddModal}>
-        Add
-      </button>
+      <div className="d-flex px-3">
+        <span>
+          <b>Channels</b>
+        </span>
+        {/* <button type="button" className="btn btn-link mr-1 ml-auto p-0" onClick={showAddModal}>
+          +
+        </button> */}
+        <Button variant="link" className="ml-auto p-0" onClick={showAddModal}>
+          +
+        </Button>
+      </div>
+      <ListGroup varitant="flush">
+        {channels.map(({ id, name }) => {
+          const btnClass = cn({
+            'w-100 text-left px-3': true,
+            'bg-primary text-light': id === currentChannel.id,
+          });
+          return (
+            <ListGroup.Item key={id} className="border-0 p-0">
+              <Button variant="link" className={btnClass} onClick={changeCurrentChannel(id)}>
+                {`#${name}`}
+              </Button>
+            </ListGroup.Item>
+          );
+        })}
+      </ListGroup>
       {currentChannel.removable ? (
         <button
           type="button"
