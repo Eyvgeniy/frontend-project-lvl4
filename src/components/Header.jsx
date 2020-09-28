@@ -23,15 +23,15 @@ const Header = ({ currentChannel }) => {
 	};
 
 	return (
-		<div className='d-flex justify-content-between'>
-			<div>{currentChannel.name}</div>
+		<div className='d-flex justify-content-between p-2'>
+			<div className='d-flex flex-shrink-0 lead'>{`#${currentChannel.name}`}</div>
 			<div>
 				{currentChannel.removable && (
 					<>
-						<Button variant='outline-secondary' onClick={showRenameModal(currentChannel)}>
+						<Button variant='light' onClick={showRenameModal(currentChannel)}>
 							rename
 						</Button>
-						<Button variant='outline-danger' onClick={showRemoveModal(currentChannel)}>
+						<Button variant='light' onClick={showRemoveModal(currentChannel)}>
 							delete
 						</Button>
 					</>
