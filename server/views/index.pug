@@ -1,13 +1,13 @@
 doctype html
-html(lang="en").h-100
+html(lang="en")
   head
     title= Title
     link(rel="stylesheet" href=assetPath('main.css'))
     link(href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet")
     script.
       var gon = !{JSON.stringify(gon)};
-  body.h-100    
-    .container-fluid.h-100.p-0
+  body    
+    .container.vh-100
       #chat.h-100
 
       // block content

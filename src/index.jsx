@@ -17,16 +17,16 @@ import store from './app/store';
 // import app from './app';
 
 const render = () => {
-  ReactDom.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-    document.getElementById('chat'),
-  );
+	ReactDom.render(
+		<Provider store={store}>
+			<App />
+		</Provider>,
+		document.getElementById('chat'),
+	);
 };
 
 if (process.env.NODE_ENV !== 'production') {
-  localStorage.debug = 'chat:*';
+	localStorage.debug = 'chat:*';
 }
 
 render();
