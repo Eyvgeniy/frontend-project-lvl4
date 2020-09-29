@@ -36,7 +36,7 @@ const Form = (props) => {
 
 	const renderField = (field) => (
 		<div className='input-row'>
-			<input {...field.input} ref={inputEl} type='text' />
+			<input {...field.input} ref={inputEl} type='text' className='w-100' />
 			{field.meta.touched && field.meta.error && <span className='error'>{field.meta.error}</span>}
 		</div>
 	);
