@@ -7,9 +7,8 @@ const Message = (props) => {
 
 	return (
 		<li className='my-1'>
-			<span>
-				{user} {time}
-			</span>
+			<span className='font-weight-bold'>{`${user} `}</span>
+			<span>{time} </span>
 			<p className='m-0'>{text}</p>
 		</li>
 	);

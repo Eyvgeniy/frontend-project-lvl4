@@ -7,6 +7,13 @@ import UserContext from '../../UserContext';
 const mapPropsToState = ({ currentChannelId }) => ({
 	currentChannelId,
 });
+const timeOptions = {
+	year: 'numeric',
+	month: 'short',
+	day: 'numeric',
+	hour: 'numeric',
+	minute: 'numeric',
+};
 
 const Form = (props) => {
 	const { handleSubmit, submitting, SubmissionError } = props;
@@ -16,7 +23,7 @@ const Form = (props) => {
 	const { reset, currentChannelId } = props;
 
 	const handleSubmitForm = async (values) => {
-		const time = new Date().toLocaleString();
+		const time = new Date().toLocaleString('en-US', timeOptions);
 		const data = {
 			user: userName,
 			text: values.message,
