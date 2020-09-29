@@ -13,7 +13,7 @@ const MessagesList = (props) => {
 	const { messages } = props;
 
 	return (
-		<ul className='list-unstyled overflow-auto flex-grow-1 mt-auto d-flex flex-column-reverse'>
+		<ul className='list-unstyled overflow-auto flex-grow-1 mt-auto d-flex flex-column-reverse px-3 mb-0'>
 			{messages.map((message) => <Message key={message.id} message={message} />).reverse()}
 		</ul>
 	);

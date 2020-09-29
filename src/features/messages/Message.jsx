@@ -1,18 +1,18 @@
 import React from 'react';
 
 const Message = (props) => {
-  const {
-    message: { text, user, time },
-  } = props;
+	const {
+		message: { text, user, time },
+	} = props;
 
-  return (
-    <li>
-      <span>
-        {user} {time}
-      </span>
-      <p>{text}</p>
-    </li>
-  );
+	return (
+		<li className='my-1'>
+			<span>
+				{user} {time}
+			</span>
+			<p className='m-0'>{text}</p>
+		</li>
+	);
 };
 
 export default Message;

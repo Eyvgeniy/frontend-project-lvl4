@@ -42,7 +42,7 @@ const Form = (props) => {
 	);
 
 	return (
-		<form className='' onSubmit={handleSubmit(handleSubmitForm)}>
+		<form className='px-3' onSubmit={handleSubmit(handleSubmitForm)}>
 			<div className='form-group'>
 				<Field
 					autoFocus
