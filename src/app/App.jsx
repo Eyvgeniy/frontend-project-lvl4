@@ -60,7 +60,7 @@ const App = () => {
 					</Navbar>
 				</Col>
 				{/* <Col md={9} className='d-flex flex-column overflow-auto vh-100 pb-3 pb-md-2'> */}
-				<Col md={9} className='d-flex bg-light flex-grow-1 flex-column h-100 overflow-hidden'>
+				<Col md={9} className='d-flex flex-grow-1 flex-column h-100 overflow-hidden p-0 border-right'>
 					<Header />
 					<MessagesList />
 					<Form />
