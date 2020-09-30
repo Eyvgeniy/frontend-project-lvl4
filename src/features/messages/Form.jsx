@@ -15,6 +15,21 @@ const timeOptions = {
 	minute: 'numeric',
 };
 
+const validate = (values) => {
+	const errors = {};
+	if (!values.hasOwnProperty('message')) {
+		errors.message = 'Can`t send empty message';
+	}
+	return errors;
+}
+
+const renderField = (field) => (
+	<div className='input-row'>
+		<input {...field.input} ref={inputEl} type='text' className='w-100' />
+		{field.meta.touched && field.meta.error && <span className='error text-warning'>{field.meta.error}</span>}
+	</div>
+);
+
 const Form = (props) => {
 	const { handleSubmit, submitting, SubmissionError } = props;
 	const dispatch = useDispatch();
@@ -64,6 +79,8 @@ const Form = (props) => {
 	);
 };
 const ConnectedForm = connect(mapPropsToState)(Form);
+
 export default reduxForm({
 	form: 'messageForm',
+	validate,
 })(ConnectedForm);
