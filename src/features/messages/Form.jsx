@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useContext } from 'react';
 import { useDispatch, connect } from 'react-redux';
 import { Field, reduxForm, SubmissionError } from 'redux-form';
@@ -62,5 +63,4 @@ const ConnectedForm = connect(mapPropsToState)(Form);
 
 export default reduxForm({
   form: 'messageForm',
-  // validate,
 })(ConnectedForm);
