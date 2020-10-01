@@ -18,6 +18,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatch = { changeChannel };
 
+// eslint-disable-next-line no-shadow
 const Channels = ({ channels, changeChannel, currentChannel }) => {
   const dispatch = useDispatch();
 
