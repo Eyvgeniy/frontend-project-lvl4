@@ -9,23 +9,25 @@ const messagesSlice = createSlice({
   reducers: {
     addMessage(state, action) {
       const { attributes } = action.payload;
-      state.allMessages = [...state.allMessages, attributes];
+      return { ...state, allMessages: [...state.allMessages, attributes] };
     },
     MESSAGE_FETCH_REQUEST(state) {
-      state.fetchStatus = 'REQUEST';
+      return { ...state, fetchStatus: 'REQUEST' };
     },
     MESSAGE_FETCH_SUCCESS(state) {
-      state.fetchStatus = 'SUCCESS';
+      return { ...state, fetchStatus: 'SUCCESS' };
     },
     MESSAGE_FETCH_FAILURE(state) {
-      state.fetchStatus = 'FAILURE';
+      return { ...state, fetchStatus: 'FAILURE' };
     },
   },
   extraReducers: {
     [deleteChannel]: (state, action) => {
       const { data } = action.payload;
       const { id } = data;
-      state.allMessages = state.allMessages.filter((m) => m.channelId !== id);
+      const updateState = {};
+      updateState.allMessages = state.allMessages.filter((m) => m.channelId !== id);
+      return updateState;
     },
   },
 });
@@ -47,8 +49,8 @@ const sendMessageToServer = async (data, id) => {
 export const fetchMessage = (data, id) => async (dispatch) => {
   dispatch(MESSAGE_FETCH_REQUEST());
   try {
+    await sendMessageToServer(data, id);
     dispatch(MESSAGE_FETCH_SUCCESS());
-    sendMessageToServer(data, id);
   } catch (err) {
     dispatch(MESSAGE_FETCH_FAILURE());
     throw err;
