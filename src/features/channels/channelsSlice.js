@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { omit, remove } from 'lodash';
-// import { combineReducers } from 'redux';
+import { omit } from 'lodash';
 
 const channelsSlice = createSlice({
   name: 'channels',
@@ -9,19 +8,24 @@ const channelsSlice = createSlice({
     addChannel(state, action) {
       const { attributes } = action.payload;
       const { id } = attributes;
-      state.byId = { ...state.byId, [id]: attributes };
-      state.allIds = [...state.allIds, id];
+      const newState = {};
+      newState.byId = { ...state.byId, [id]: attributes };
+      newState.allIds = [...state.allIds, id];
+      return newState;
     },
     renameChannel(state, action) {
-      const { attributes } = action.payload;
-      const { id, name } = attributes;
-      state.byId[id].name = name;
+      const {
+        payload: { attributes },
+      } = action;
+      return { ...state, byId: { ...state.byId, [attributes.id]: attributes } };
     },
     deleteChannel(state, action) {
       const { data } = action.payload;
       const { id } = data;
-      state.byId = omit(state.byId, [id]);
-      state.allIds = state.allIds.filter((i) => i !== id);
+      const updateState = {};
+      updateState.byId = omit(state.byId, [id]);
+      updateState.allIds = state.allIds.filter((i) => i !== id);
+      return updateState;
     },
   },
 });
