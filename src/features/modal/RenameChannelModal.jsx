@@ -6,22 +6,35 @@ import { useDispatch, connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { closeModal } from './modalsSliсe';
 import { renameChannel } from '../channels/channelRenameStateSlice';
+import validate from '../../utils/validate';
 
 const mapStateToProps = (state) => {
 	const {
 		modal: {
 			props: { id, name },
 		},
+		channels: { byId }
 	} = state;
-	return { id, name };
+	const names = Object.keys(byId).map(key => byId[key].name);
+	return { id, name, names };
 };
+
+const renderField = (field) => (
+	<div className='input-row'>
+		<input {...field.input} type='text' className='w-100' />
+		{field.meta.touched && field.meta.error && (
+			<span className='error text-danger'>{field.meta.error}</span>
+		)}
+	</div>
+);
 
 const mapDispatch = { closeModal };
 
 const ModalWindow = (props) => {
-	const { handleSubmit, submitting, SubmissionError, id, name, closeModal } = props;
+	const { handleSubmit, submitting, names, id, name, closeModal } = props;
 	const dispatch = useDispatch();
 	const handleSubmitForm = async ({ channel }) => {
+		validate(channel, names)
 		await dispatch(renameChannel(channel, id));
 		await closeModal();
 	};
@@ -39,7 +52,7 @@ const ModalWindow = (props) => {
 				<Form onSubmit={handleSubmit(handleSubmitForm)}>
 					<Form.Group>
 						<Modal.Body>
-							<Field name='channel' disabled={submitting} required component='input' type='text' />
+							<Field name='channel' disabled={submitting} required component={renderField} type='text' />
 						</Modal.Body>
 					</Form.Group>
 					<Modal.Footer>
