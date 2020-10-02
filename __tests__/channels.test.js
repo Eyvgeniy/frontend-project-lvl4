@@ -6,7 +6,7 @@ import buildApp from '../server';
 const buildUrl = (url) => path.join('/api/v1/', url);
 
 test('get /channels', async () => {
-  const app = buildApp();
+  const app = buildApp({ port: 5000 });
   const response = await app.inject({
     url: buildUrl('channels'),
   });
@@ -17,14 +17,18 @@ test('get /channels', async () => {
       type: 'channels',
       id: expect.any(Number),
       attributes: {
-        id: expect.any(Number), name: 'general', removable: false,
+        id: expect.any(Number),
+        name: 'general',
+        removable: false,
       },
     },
     {
       type: 'channels',
       id: expect.any(Number),
       attributes: {
-        id: expect.any(Number), name: 'random', removable: false,
+        id: expect.any(Number),
+        name: 'random',
+        removable: false,
       },
     },
   ];
@@ -43,7 +47,7 @@ test('post /channels', async () => {
       },
     },
   };
-  const app = buildApp();
+  const app = buildApp({ port: 5000 });
   const response = await app.inject({
     method: 'POST',
     url: buildUrl('channels'),
@@ -66,11 +70,9 @@ test('post /channels', async () => {
 
 test('delete /channels/:id', async () => {
   const state = {
-    channels: [
-      { id: 100, name: 'custom', removable: true },
-    ],
+    channels: [{ id: 100, name: 'custom', removable: true }],
   };
-  const app = buildApp(state);
+  const app = buildApp({ state });
   const response = await app.inject({
     method: 'DELETE',
     url: buildUrl('channels/100'),
@@ -80,12 +82,10 @@ test('delete /channels/:id', async () => {
 
 test('patch /channels/:id', async () => {
   const state = {
-    channels: [
-      { id: 100, name: 'custom', removable: true },
-    ],
+    channels: [{ id: 100, name: 'custom', removable: true }],
   };
 
-  const app = buildApp(state);
+  const app = buildApp({ state });
 
   const payload = {
     data: {
