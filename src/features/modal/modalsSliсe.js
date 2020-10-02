@@ -11,13 +11,11 @@ const modalsSlice = createSlice({
     },
     showRenameChannelModal(state, action) {
       const { channel } = action.payload;
-      state.type = 'rename';
-      state.props = channel;
+      return { type: 'rename', props: channel };
     },
     showRemoveChannelModal(state, action) {
       const { channel } = action.payload;
-      state.type = 'remove';
-      state.props = channel;
+      return { type: 'remove', props: channel };
     },
     closeModal() {
       return { type: 'none', props: {} };
