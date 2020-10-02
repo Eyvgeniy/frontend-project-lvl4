@@ -15,5 +15,5 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Test code with Eslint
     - run: make lint
