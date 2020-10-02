@@ -1,6 +1,7 @@
 # frontend-project-lvl4
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/3d4934f9a287800be474/maintainability)](https://codeclimate.com/github/Eyvgeniy/frontend-project-lvl4/maintainability)
+![Node CI](https://github.com/Eyvgeniy/frontend-project-lvl4/workflows/Node%20CI/badge.svg?branch=master)
 
 https://warm-spire-27578.herokuapp.com/
 
