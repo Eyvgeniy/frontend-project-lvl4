@@ -16,4 +16,4 @@ jobs:
     
     steps:
     - name: Test code with Eslint
-    - run: make lint
+      run: make lint
