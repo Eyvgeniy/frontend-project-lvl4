@@ -12,7 +12,9 @@ export default (channel, names) => {
   if (channel && channel.length > 15) {
     throw new SubmissionError({ channel: 'Can`t be longer than 15 symbols.' });
   }
-  if (channel && !channel.match(/^[a-z0-9]+$/) || !isLowerCase(channel)) {
-    throw new SubmissionError({ channel: 'Channel name must be alphanumeric, in English and lowercase' });
+  if ((channel && !channel.match(/^[a-z0-9]+$/)) || !isLowerCase(channel)) {
+    throw new SubmissionError({
+      channel: 'Channel name must be alphanumeric, in English and lowercase',
+    });
   }
-}
+};
