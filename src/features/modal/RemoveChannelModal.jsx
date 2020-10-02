@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -19,7 +20,9 @@ const mapStateToProps = (state) => {
 const mapDispatch = { closeModal };
 
 const ModalWindow = (props) => {
-  const { handleSubmit, submitting, SubmissionError, id, name, closeModal } = props;
+  const {
+    handleSubmit, id, name, closeModal,
+  } = props;
   const dispatch = useDispatch();
   const handleSubmitForm = async ({ channel }) => {
     await dispatch(removeChannel(channel, id));
@@ -34,11 +37,11 @@ const ModalWindow = (props) => {
     <>
       <Modal show onHide={hanleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Remove #{name}</Modal.Title>
+          <Modal.Title>{`Remove #${name}`}</Modal.Title>
         </Modal.Header>
         <Form onSubmit={handleSubmit(handleSubmitForm)}>
           <Form.Group>
-            <Modal.Body>Do you want to remove #{name}?</Modal.Body>
+            <Modal.Body>{`Do you want to remove #${name}?`}</Modal.Body>
           </Form.Group>
           <Modal.Footer>
             <Button variant="secondary" type="submit">
