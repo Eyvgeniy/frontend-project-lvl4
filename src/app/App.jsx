@@ -18,7 +18,7 @@ const App = () => {
   const userName = cookie.get('userName') || createUserName();
   cookie.set('userName', userName);
 
-  const socket = io.connect('http://localhost:5000');
+  const socket = io();
 
   socket.on('newMessage', ({ data: { attributes } }) => {
     store.dispatch(addMessage({ attributes }));
