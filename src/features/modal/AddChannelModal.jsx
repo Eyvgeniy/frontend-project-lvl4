@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -9,29 +11,33 @@ import { addNewChannel } from '../channels/channelAddStateSlice';
 import validate from '../../utils/validate';
 
 const mapStateToProps = (state) => {
-  const { channels: { byId } } = state;
-  const names = Object.keys(byId).map(key => byId[key].name);
+  const {
+    channels: { byId },
+  } = state;
+  const names = Object.keys(byId).map((key) => byId[key].name);
   return { names };
-}
+};
 
 const mapDispatch = { closeModal };
 
 const renderField = (field) => (
-  <div className='input-row'>
-    <input {...field.input} type='text' className='w-100' />
+  <div className="input-row">
+    <input {...field.input} type="text" className="w-100" />
     {field.meta.touched && field.meta.error && (
-      <span className='error text-danger'>{field.meta.error}</span>
+      <span className="error text-danger">{field.meta.error}</span>
     )}
   </div>
 );
 
 const ModalWindow = (props) => {
-  const { handleSubmit, submitting, closeModal, names } = props;
+  const {
+    handleSubmit, submitting, closeModal, names,
+  } = props;
   const dispatch = useDispatch();
   const handleSubmitForm = async ({ channel }) => {
     validate(channel, names);
     await dispatch(addNewChannel(channel));
-    await closeModal();
+    closeModal();
   };
 
   const hanleCloseModal = () => {
@@ -47,7 +53,13 @@ const ModalWindow = (props) => {
         <Form onSubmit={handleSubmit(handleSubmitForm)}>
           <Form.Group>
             <Modal.Body>
-              <Field name="channel" disabled={submitting} required component={renderField} type="text" />
+              <Field
+                name="channel"
+                disabled={submitting}
+                required
+                component={renderField}
+                type="text"
+              />
             </Modal.Body>
           </Form.Group>
           <Modal.Footer>
