@@ -1,4 +1,6 @@
-/* eslint-disable no-console */
+
+#! /usr/bin/env node
+
 import getApp from '..';
 
 const port = process.env.PORT || 5000;
