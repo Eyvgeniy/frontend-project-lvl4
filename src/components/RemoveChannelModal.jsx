@@ -5,8 +5,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useDispatch, connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { closeModal } from './modalsSliсe';
-import { removeChannel } from '../channels/channelRemoveStateSlice';
+import { closeModal } from '../reducers/modal/modalsSliсe';
+import { removeChannel } from '../reducers/channel/channelRemoveStateSlice';
 
 const mapStateToProps = (state) => {
   const {
@@ -20,9 +20,7 @@ const mapStateToProps = (state) => {
 const mapDispatch = { closeModal };
 
 const ModalWindow = (props) => {
-  const {
-    handleSubmit, id, name, closeModal,
-  } = props;
+  const { handleSubmit, id, name, closeModal } = props;
   const dispatch = useDispatch();
   const handleSubmitForm = async ({ channel }) => {
     await dispatch(removeChannel(channel, id));
