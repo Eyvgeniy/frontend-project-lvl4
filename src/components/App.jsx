@@ -1,16 +1,14 @@
 import React from 'react';
-import {
-  Row, Col, Nav, Navbar,
-} from 'react-bootstrap';
+import { Row, Col, Nav, Navbar } from 'react-bootstrap';
 import io from 'socket.io-client';
 import cookie from 'js-cookie';
-import Channels from '../features/channels/Channels';
-import { addChannel, renameChannel, deleteChannel } from '../features/channels/channelsSlice';
-import Form from '../features/messages/Form';
-import MessagesList from '../features/messages/MessagesList';
-import { addMessage } from '../features/messages/messagesSlice';
-import Modal from '../features/modal/Modal';
-import Header from '../components/Header';
+import Channels from './Channels';
+import Form from './Form';
+import MessagesList from './MessagesList';
+import Modal from './Modal';
+import Header from '../Header';
+import { addChannel, renameChannel, deleteChannel } from '../reducers/channel/channelsSlice';
+import { addMessage } from '../reducers/messages/messagesSlice';
 import createUserName from '../utils/createUserName';
 import store from './store';
 
