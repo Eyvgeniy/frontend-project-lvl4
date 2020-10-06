@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { ListGroup, Button } from 'react-bootstrap';
 import { connect, useDispatch } from 'react-redux';
 import cn from 'classnames';
-import { showAddChannelModal } from '../modal/modalsSliсe';
-import UserContext from '../../UserContext';
-import { changeChannel } from './channelIdSlice';
+import { showAddChannelModal } from '../reducers/modal/modalsSliсe';
+import UserContext from '../UserContext';
+import { changeChannel } from '../reducers/channel/channelIdSlice';
 
 const mapStateToProps = (state) => {
   const {
