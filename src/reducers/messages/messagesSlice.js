@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import routes from '../../routes';
-import { deleteChannel } from '../channels/channelsSlice';
+import { deleteChannel } from '../channel/channelsSlice';
 
 const messagesSlice = createSlice({
   name: 'messages',
