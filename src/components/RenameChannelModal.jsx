@@ -6,9 +6,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useDispatch, connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { closeModal } from './modalsSliсe';
-import { renameChannel } from '../channels/channelRenameStateSlice';
-import validate from '../../utils/validate';
+import { closeModal } from '../reducers/modal/modalsSliсe';
+import { renameChannel } from '../reducers/channel/channelRenameStateSlice';
+import validate from '../utils/validate';
 
 const mapStateToProps = (state) => {
   const {
@@ -33,9 +33,7 @@ const renderField = (field) => (
 const mapDispatch = { closeModal };
 
 const ModalWindow = (props) => {
-  const {
-    handleSubmit, submitting, names, id, name, closeModal,
-  } = props;
+  const { handleSubmit, submitting, names, id, name, closeModal } = props;
   const dispatch = useDispatch();
   const handleSubmitForm = async ({ channel }) => {
     validate(channel, names);
