@@ -1,5 +1,7 @@
 import React from 'react';
-import { Row, Col, Nav, Navbar } from 'react-bootstrap';
+import {
+  Row, Col, Nav, Navbar,
+} from 'react-bootstrap';
 import io from 'socket.io-client';
 import cookie from 'js-cookie';
 import Channels from './Channels';
