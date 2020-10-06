@@ -3,8 +3,8 @@ import React, { useContext } from 'react';
 import { useDispatch, connect } from 'react-redux';
 import { Field, reduxForm, SubmissionError } from 'redux-form';
 import { has } from 'lodash';
-import { fetchMessage } from './messagesSlice';
-import UserContext from '../../UserContext';
+import { fetchMessage } from '../reducers/messages/messagesSlice';
+import UserContext from '../UserContext';
 
 const mapPropsToState = ({ currentChannelId }) => ({
   currentChannelId,
