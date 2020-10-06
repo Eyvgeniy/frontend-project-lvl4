@@ -5,7 +5,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import { Provider } from 'react-redux';
 import cookie from 'js-cookie';
-import App from './app/App';
+import App from './components/App';
 import UserContext from './UserContext';
 import createUserName from './utils/createUserName';
 import initState from '../utils/initState';
