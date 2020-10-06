@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import { showRenameChannelModal, showRemoveChannelModal } from '../features/modal/modalsSliсe';
+import { showRenameChannelModal, showRemoveChannelModal } from '../reducers/modal/modalsSliсe';
 
 const mapStateToProps = (state) => {
   const {
