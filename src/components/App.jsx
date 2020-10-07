@@ -1,5 +1,4 @@
 import React from 'react';
-<<<<<<< 6d86d514a0f4fd7acaad14a94d51116256572dc0
 import {
   Row, Col, Nav, Navbar,
 } from 'react-bootstrap';
@@ -27,10 +26,7 @@ const App = () => (
           </Navbar.Collapse>
         </Navbar>
       </Col>
-      <Col
-        md={9}
-        className="d-flex flex-grow-1 flex-column h-100 overflow-hidden p-0 border-right"
-      >
+      <Col md={9} className="d-flex flex-grow-1 flex-column h-100 overflow-hidden p-0 border-right">
         <Header />
         <MessagesList />
         <Form />
@@ -40,19 +36,4 @@ const App = () => (
   </>
 );
 
-=======
-import { Row, Col } from 'react-bootstrap';
-import Channels from '../features/channels/channels';
-
-const App = () => {
-	return (
-		<Row>
-			<Col md={3}>
-				<Channels />
-			</Col>
-			<Col></Col>
-		</Row>
-	);
-};
->>>>>>> making new layout
 export default App;
