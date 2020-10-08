@@ -7,12 +7,8 @@ import UserContext from '../UserContext';
 import { changeChannel } from '../reducers/channel/channelIdSlice';
 
 const mapStateToProps = (state) => {
-  const {
-    currentChannelId,
-    channels: { byId, allIds },
-  } = state;
-  const channels = allIds.map((id) => byId[id]);
-  const currentChannel = byId[currentChannelId];
+  const { currentChannelId, channels } = state;
+  const currentChannel = channels.map((c) => c.id === currentChannelId);
   return { channels, currentChannel };
 };
 
