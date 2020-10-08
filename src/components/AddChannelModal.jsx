@@ -11,10 +11,8 @@ import { addNewChannel } from '../reducers/channel/channelAddStateSlice';
 import validate from '../utils/validate';
 
 const mapStateToProps = (state) => {
-  const {
-    channels: { byId },
-  } = state;
-  const names = Object.keys(byId).map((key) => byId[key].name);
+  const { channels } = state;
+  const names = channels.map((c) => c.name);
   return { names };
 };
 
