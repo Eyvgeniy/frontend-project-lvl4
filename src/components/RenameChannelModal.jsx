@@ -15,9 +15,9 @@ const mapStateToProps = (state) => {
     modal: {
       props: { id, name },
     },
-    channels: { byId },
+    channels,
   } = state;
-  const names = Object.keys(byId).map((key) => byId[key].name);
+  const names = channels.map((c) => c.name);
   return { id, name, names };
 };
 
