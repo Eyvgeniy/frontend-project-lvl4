@@ -1,5 +1,3 @@
-import { keyBy } from 'lodash';
-
 export default (data) => {
   const { messages, currentChannelId, channels } = data;
   return {
@@ -7,10 +5,7 @@ export default (data) => {
       fetchStatus: 'none',
       allMessages: messages,
     },
-    channels: {
-      byId: keyBy(channels, 'id'),
-      allIds: channels.map((t) => t.id),
-    },
+    channels,
     currentChannelId,
   };
 };
