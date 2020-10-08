@@ -6,18 +6,18 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useDispatch, connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { closeModal } from '../reducers/modal/modalsSliсe';
-import { renameChannel } from '../reducers/channel/channelRenameStateSlice';
+import { closeModal } from '../slices/modals';
+import { channelRename } from '../slices/channels';
 import validate from '../utils/validate';
 
 const mapStateToProps = (state) => {
   const {
-    modal: {
+    modals: {
       props: { id, name },
     },
-    channels,
+    channels: { list },
   } = state;
-  const names = channels.map((c) => c.name);
+  const names = list.map((c) => c.name);
   return { id, name, names };
 };
 
@@ -33,13 +33,11 @@ const renderField = (field) => (
 const mapDispatch = { closeModal };
 
 const ModalWindow = (props) => {
-  const {
-    handleSubmit, submitting, names, id, name, closeModal,
-  } = props;
+  const { handleSubmit, submitting, names, id, name, closeModal } = props;
   const dispatch = useDispatch();
   const handleSubmitForm = async ({ channel }) => {
     validate(channel, names);
-    await dispatch(renameChannel(channel, id));
+    await dispatch(channelRename(channel, id));
     await closeModal();
   };
 

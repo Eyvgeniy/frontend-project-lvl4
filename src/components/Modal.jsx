@@ -6,7 +6,7 @@ import RemoveChannelModal from './RemoveChannelModal';
 
 const mapStateToProps = (state) => {
   const {
-    modal: { type, props },
+    modals: { type, props },
   } = state;
   return { type, props };
 };

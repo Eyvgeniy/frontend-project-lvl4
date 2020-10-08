@@ -4,12 +4,15 @@ import { useDispatch, connect } from 'react-redux';
 import { Field, reduxForm, SubmissionError } from 'redux-form';
 import i18next from 'i18next';
 import { has } from 'lodash';
-import { fetchMessage } from '../reducers/messages/messagesSlice';
+import { fetchMessage } from '../slices/messages';
 import UserContext from '../UserContext';
 
-const mapPropsToState = ({ currentChannelId }) => ({
-  currentChannelId,
-});
+const mapPropsToState = (state) => {
+  const {
+    channels: { actualId },
+  } = state;
+  return { actualId };
+};
 const timeOptions = {
   year: 'numeric',
   month: 'short',
@@ -28,10 +31,9 @@ const renderField = (field) => (
 );
 
 const Form = (props) => {
-  const { handleSubmit, submitting } = props;
+  const { handleSubmit, submitting, reset, actualId } = props;
   const dispatch = useDispatch();
   const userName = useContext(UserContext);
-  const { reset, currentChannelId } = props;
 
   const handleSubmitForm = async (values) => {
     if (!has(values, 'message')) {
@@ -45,7 +47,7 @@ const Form = (props) => {
       time,
     };
     try {
-      await dispatch(fetchMessage(data, currentChannelId));
+      await dispatch(fetchMessage(data, actualId));
     } catch (e) {
       throw new SubmissionError({ error: e.message });
     }

@@ -4,15 +4,18 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useDispatch, connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { closeModal } from '../reducers/modal/modalsSliсe';
-import { addNewChannel } from '../reducers/channel/channelAddStateSlice';
+import * as yup from 'yup';
+import { closeModal } from '../slices/modals';
+import { channelAdd } from '../slices/channels';
 import validate from '../utils/validate';
 
 const mapStateToProps = (state) => {
-  const { channels } = state;
-  const names = channels.map((c) => c.name);
+  const {
+    channels: { list },
+  } = state;
+  const names = list.map((c) => c.name);
   return { names };
 };
 
@@ -28,13 +31,14 @@ const renderField = (field) => (
 );
 
 const ModalWindow = (props) => {
-  const {
-    handleSubmit, submitting, closeModal, names,
-  } = props;
-  const dispatch = useDispatch();
+  const { handleSubmit, submitting, closeModal, names } = props;
+  const validSchema = yup.object({
+    channel: yup.string().required().length(15),
+  });
+  console.log(validSchema);
   const handleSubmitForm = async ({ channel }) => {
     validate(channel, names);
-    await dispatch(addNewChannel(channel));
+    await channelAdd(channel);
     closeModal();
   };
 

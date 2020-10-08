@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import { showRenameChannelModal, showRemoveChannelModal } from '../reducers/modal/modalsSliсe';
+import { showModal } from '../slices/modals';
 
 const mapStateToProps = (state) => {
-  const { currentChannelId, channels } = state;
-  const currentChannel = channels.find((c) => c.id === currentChannelId);
+  const {
+    channels: { actualId, list },
+  } = state;
+  const currentChannel = list.find((c) => c.id === actualId);
   return { currentChannel };
 };
 const Header = ({ currentChannel }) => {
@@ -13,12 +15,12 @@ const Header = ({ currentChannel }) => {
 
   const showRenameModal = (channel) => (e) => {
     e.preventDefault();
-    dispatch(showRenameChannelModal({ channel }));
+    dispatch(showModal({ type: 'rename', props: channel }));
   };
 
   const showRemoveModal = (channel) => (e) => {
     e.preventDefault();
-    dispatch(showRemoveChannelModal({ channel }));
+    dispatch(showModal({ type: 'remove', props: channel }));
   };
 
   return (

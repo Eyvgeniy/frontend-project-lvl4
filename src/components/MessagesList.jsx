@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import Message from './Message';
 
 const mapStateToProps = (state) => {
-  const messages = state.messages.allMessages;
-  const { currentChannelId } = state;
-  const currentMessages = messages.filter(({ channelId }) => channelId === currentChannelId);
+  const { messages } = state;
+  const {
+    channels: { actualId },
+  } = state;
+  const currentMessages = messages.filter(({ channelId }) => channelId === actualId);
   return { messages: currentMessages };
 };
 

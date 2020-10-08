@@ -2,20 +2,20 @@ import React, { useContext } from 'react';
 import { ListGroup, Button } from 'react-bootstrap';
 import { connect, useDispatch } from 'react-redux';
 import cn from 'classnames';
-import { showAddChannelModal } from '../reducers/modal/modalsSliсe';
+import { showModal } from '../slices/modals';
 import UserContext from '../UserContext';
-import { changeChannel } from '../reducers/channel/channelIdSlice';
+import { changeChannel } from '../slices/channels';
 
 const mapStateToProps = (state) => {
-  const { currentChannelId, channels } = state;
-  const currentChannel = channels.map((c) => c.id === currentChannelId);
-  return { channels, currentChannel };
+  const { actualId, list } = state.channels;
+  const currentChannel = list.map((c) => c.id === actualId);
+  return { list, currentChannel };
 };
 
 const mapDispatch = { changeChannel };
 
 // eslint-disable-next-line no-shadow
-const Channels = ({ channels, changeChannel, currentChannel }) => {
+const Channels = ({ list, changeChannel, currentChannel }) => {
   const dispatch = useDispatch();
 
   const changeCurrentChannel = (id) => (e) => {
@@ -25,7 +25,7 @@ const Channels = ({ channels, changeChannel, currentChannel }) => {
 
   const showAddModal = (e) => {
     e.preventDefault();
-    dispatch(showAddChannelModal());
+    dispatch(showModal({ type: 'add', props: {} }));
   };
 
   const userName = useContext(UserContext);
@@ -50,7 +50,7 @@ const Channels = ({ channels, changeChannel, currentChannel }) => {
         </Button>
       </div>
       <ListGroup varitant="flush">
-        {channels.map(({ id, name }) => {
+        {list.map(({ id, name }) => {
           const btnClass = cn({
             'w-100 text-left px-3 text-light bg-secondary border-0 rounded-0': true,
             'bg-info ': id === currentChannel.id,

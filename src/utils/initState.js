@@ -1,11 +1,10 @@
 export default (data) => {
   const { messages, currentChannelId, channels } = data;
   return {
-    messages: {
-      fetchStatus: 'none',
-      allMessages: messages,
+    messages,
+    channels: {
+      list: channels,
+      actualId: currentChannelId,
     },
-    channels,
-    currentChannelId,
   };
 };

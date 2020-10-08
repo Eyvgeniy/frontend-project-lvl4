@@ -11,9 +11,9 @@ import App from './components/App';
 import UserContext from './UserContext';
 import createUserName from './utils/createUserName';
 import initState from './utils/initState';
-import rootReducer from './reducers';
-import { addChannel, renameChannel, deleteChannel } from './reducers/channel/channelsSlice';
-import { addMessage } from './reducers/messages/messagesSlice';
+import rootReducer from './slices';
+import { addChannel, renameChannel, deleteChannel } from './slices/channels';
+import { addMessage } from './slices/messages';
 import resources from './locales';
 
 const init = async (gon) => {
