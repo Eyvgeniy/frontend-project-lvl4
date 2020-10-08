@@ -4,19 +4,18 @@ import { Button } from 'react-bootstrap';
 import { showRenameChannelModal, showRemoveChannelModal } from '../reducers/modal/modalsSliсe';
 
 const mapStateToProps = (state) => {
-  const {
-    currentChannelId,
-    channels: { byId },
-  } = state;
-  const currentChannel = byId[currentChannelId];
+  const { currentChannelId, channels } = state;
+  const currentChannel = channels.find((c) => c.id === currentChannelId);
   return { currentChannel };
 };
 const Header = ({ currentChannel }) => {
   const dispatch = useDispatch();
+
   const showRenameModal = (channel) => (e) => {
     e.preventDefault();
     dispatch(showRenameChannelModal({ channel }));
   };
+
   const showRemoveModal = (channel) => (e) => {
     e.preventDefault();
     dispatch(showRemoveChannelModal({ channel }));
