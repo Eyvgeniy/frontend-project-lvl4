@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import routes from '../../routes';
@@ -9,25 +10,23 @@ const messagesSlice = createSlice({
   reducers: {
     addMessage(state, action) {
       const { attributes } = action.payload;
-      return { ...state, allMessages: [...state.allMessages, attributes] };
+      state.allMessages = [...state.allMessages, attributes];
     },
     MESSAGE_FETCH_REQUEST(state) {
-      return { ...state, fetchStatus: 'REQUEST' };
+      state.fetchStatus = 'REQUEST';
     },
     MESSAGE_FETCH_SUCCESS(state) {
-      return { ...state, fetchStatus: 'SUCCESS' };
+      state.fetchStatus = 'SUCCESS';
     },
     MESSAGE_FETCH_FAILURE(state) {
-      return { ...state, fetchStatus: 'FAILURE' };
+      state.fetchStatus = 'FAILURE';
     },
   },
   extraReducers: {
     [deleteChannel]: (state, action) => {
       const { data } = action.payload;
       const { id } = data;
-      const updateState = {};
-      updateState.allMessages = state.allMessages.filter((m) => m.channelId !== id);
-      return updateState;
+      state.allMessages = state.allMessages.filter((m) => m.channelId !== id);
     },
   },
 });
