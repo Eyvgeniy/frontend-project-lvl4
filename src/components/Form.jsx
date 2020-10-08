@@ -2,6 +2,7 @@
 import React, { useContext } from 'react';
 import { useDispatch, connect } from 'react-redux';
 import { Field, reduxForm, SubmissionError } from 'redux-form';
+import i18next from 'i18next';
 import { has } from 'lodash';
 import { fetchMessage } from '../reducers/messages/messagesSlice';
 import UserContext from '../UserContext';
@@ -34,7 +35,7 @@ const Form = (props) => {
 
   const handleSubmitForm = async (values) => {
     if (!has(values, 'message')) {
-      throw new SubmissionError({ message: 'Can`t send empty message' });
+      throw new SubmissionError({ message: i18next.t('errors.message.emptyMessage') });
     }
 
     const time = new Date().toLocaleString('en-US', timeOptions);

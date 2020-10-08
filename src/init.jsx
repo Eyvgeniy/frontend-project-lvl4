@@ -1,5 +1,6 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
+import i18next from 'i18next';
 import io from 'socket.io-client';
 import { configureStore } from '@reduxjs/toolkit';
 import React from 'react';
@@ -13,8 +14,15 @@ import initState from './utils/initState';
 import rootReducer from './reducers';
 import { addChannel, renameChannel, deleteChannel } from './reducers/channel/channelsSlice';
 import { addMessage } from './reducers/messages/messagesSlice';
+import resources from './locales';
 
-const init = (gon) => {
+const init = async (gon) => {
+  await i18next.init({
+    lng: 'en',
+    debug: true,
+    resources,
+  });
+
   const userName = cookie.get('userName') || createUserName();
   cookie.set('userName', userName);
 

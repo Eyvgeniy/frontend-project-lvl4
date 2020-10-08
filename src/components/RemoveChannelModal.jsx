@@ -3,6 +3,7 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import i18next from 'i18next';
 import { useDispatch, connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { closeModal } from '../reducers/modal/modalsSliсe';
@@ -39,7 +40,7 @@ const ModalWindow = (props) => {
         </Modal.Header>
         <Form onSubmit={handleSubmit(handleSubmitForm)}>
           <Form.Group>
-            <Modal.Body>{`Do you want to remove #${name}?`}</Modal.Body>
+            <Modal.Body>{i18next.t('modals.deleteChannel', { name })}</Modal.Body>
           </Form.Group>
           <Modal.Footer>
             <Button variant="secondary" type="submit">
