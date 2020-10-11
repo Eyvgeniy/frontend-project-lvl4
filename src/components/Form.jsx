@@ -31,7 +31,9 @@ const renderField = (field) => (
 );
 
 const Form = (props) => {
-  const { handleSubmit, submitting, reset, actualId } = props;
+  const {
+    handleSubmit, submitting, reset, actualId,
+  } = props;
   const dispatch = useDispatch();
   const userName = useContext(UserContext);
 

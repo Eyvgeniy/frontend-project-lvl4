@@ -31,15 +31,15 @@ const renderField = (field) => (
 );
 
 const ModalWindow = (props) => {
-  const { handleSubmit, submitting, closeModal, names } = props;
-  const validSchema = yup.object({
-    channel: yup.string().required().length(15),
-  });
-  console.log(validSchema);
+  const {
+    handleSubmit, submitting, closeModal, names,
+  } = props;
+  // const validSchema = yup.object({
+  //   channel: yup.string().required().length(15),
+  // });
   const handleSubmitForm = async ({ channel }) => {
     validate(channel, names);
     await channelAdd(channel);
-    closeModal();
   };
 
   const hanleCloseModal = () => {

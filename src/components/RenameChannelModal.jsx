@@ -33,12 +33,13 @@ const renderField = (field) => (
 const mapDispatch = { closeModal };
 
 const ModalWindow = (props) => {
-  const { handleSubmit, submitting, names, id, name, closeModal } = props;
+  const {
+    handleSubmit, submitting, names, id, name, closeModal,
+  } = props;
   const dispatch = useDispatch();
   const handleSubmitForm = async ({ channel }) => {
     validate(channel, names);
     await dispatch(channelRename(channel, id));
-    await closeModal();
   };
 
   const hanleCloseModal = () => {

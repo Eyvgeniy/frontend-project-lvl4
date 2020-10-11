@@ -21,11 +21,12 @@ const mapStateToProps = (state) => {
 const mapDispatch = { closeModal };
 
 const ModalWindow = (props) => {
-  const { handleSubmit, id, name, closeModal } = props;
+  const {
+    handleSubmit, id, name, closeModal,
+  } = props;
   const dispatch = useDispatch();
   const handleSubmitForm = async ({ channel }) => {
     await dispatch(channelDelete(channel, id));
-    await closeModal();
   };
 
   return (
