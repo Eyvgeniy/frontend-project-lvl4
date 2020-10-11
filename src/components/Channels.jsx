@@ -25,7 +25,7 @@ const Channels = ({ list, changeChannel, currentChannel }) => {
 
   const showAddModal = (e) => {
     e.preventDefault();
-    dispatch(showModal({ type: 'simple', props: {} }));
+    dispatch(showModal({ type: 'add', props: {} }));
   };
 
   const userName = useContext(UserContext);

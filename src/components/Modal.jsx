@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import AddChannelModal from './AddChannelModal';
 import RenameChannelModal from './RenameChannelModal';
 import RemoveChannelModal from './RemoveChannelModal';
-import SimpleModal from './SimpleModal';
+import Example from './exampleModal';
 
 const mapStateToProps = (state) => {
   const {
@@ -17,15 +17,15 @@ const Modal = ({ type, props }) => {
 
   switch (type) {
     case 'add':
-      return <AddChannelModal />;
+      return <Example />;
     case 'rename':
-      return <RenameChannelModal initialValues={getInitialValue()} />;
+      return <Example />;
     case 'remove':
       return <RemoveChannelModal />;
     case 'none':
       return null;
     case 'simple':
-      return <SimpleModal title="Simple Modal" btn="Simple" />;
+      return <Example />;
     default:
       throw Error(`Unknown type of modal ${type}`);
   }

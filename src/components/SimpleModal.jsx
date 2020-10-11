@@ -12,9 +12,7 @@ const simpleModal = ({ children, title, btn }) => {
       <Modal.Header closeButton>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        {children}
-      </Modal.Body>
+      <Modal.Body>{children}</Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" type="submit" form="simpleForm">
           {btn}

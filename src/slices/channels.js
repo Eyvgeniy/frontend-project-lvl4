@@ -38,9 +38,7 @@ const channelsSlice = createSlice({
   },
 });
 
-export const {
-  addChannel, renameChannel, deleteChannel, changeChannel,
-} = channelsSlice.actions;
+export const { addChannel, renameChannel, deleteChannel, changeChannel } = channelsSlice.actions;
 export default channelsSlice.reducer;
 
 export const channelAdd = async (name) => {
@@ -53,7 +51,7 @@ export const channelAdd = async (name) => {
   }
 };
 
-export const channelRename = (name, id) => async () => {
+export const channelRename = async (name, id) => {
   const route = routes.channelPath(id);
   const reqBody = { data: { attributes: { name } } };
   try {
@@ -63,7 +61,7 @@ export const channelRename = (name, id) => async () => {
   }
 };
 
-export const channelDelete = (name, id) => async () => {
+export const channelDelete = async (name, id) => {
   const route = routes.channelPath(id);
   const reqBody = { data: { attributes: { name } } };
   try {
