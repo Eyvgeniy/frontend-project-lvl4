@@ -12,12 +12,12 @@ const messagesSlice = createSlice({
       const { attributes } = action.payload;
       return [...state, attributes];
     },
-    extraReducers: {
-      [deleteChannel]: (state, action) => {
-        const { data } = action.payload;
-        const { id } = data;
-        return state.filter((m) => m.channelId !== id);
-      },
+  },
+  extraReducers: {
+    [deleteChannel]: (state, action) => {
+      const { data } = action.payload;
+      const { id } = data;
+      return state.filter((m) => m.channelId !== id);
     },
   },
 });

@@ -1,18 +1,25 @@
 /* eslint-disable no-param-reassign */
 
 import { createSlice } from '@reduxjs/toolkit';
+import { addChannel, renameChannel, deleteChannel } from './channels';
+
+const initialState = { type: 'none', props: {} };
 
 const modalsSlice = createSlice({
   name: 'modal',
-  initialState: { type: 'none', props: {} },
+  initialState,
   reducers: {
     showModal(state, { payload }) {
       return payload;
     },
-    closeModal(state) {
-      state.type = 'none';
-      state.props = {};
+    closeModal() {
+      return initialState;
     },
+  },
+  extraReducers: {
+    [addChannel]: () => initialState,
+    [renameChannel]: () => initialState,
+    [deleteChannel]: () => initialState,
   },
 });
 
