@@ -53,7 +53,9 @@ const init = async (gon) => {
   ReactDom.render(
     <Provider store={store}>
       <UserContext.Provider value={userName}>
-        <App />
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
       </UserContext.Provider>
     </Provider>,
     document.getElementById('chat'),
