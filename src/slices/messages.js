@@ -25,7 +25,7 @@ const messagesSlice = createSlice({
 export const { addMessage } = messagesSlice.actions;
 export default messagesSlice.reducer;
 
-export const fetchMessage = (data, id) => async () => {
+export const fetchMessage = async (data, id) => {
   const route = routes.channelMessagesPath(id);
   const reqBody = { data: { attributes: { ...data } } };
   try {
