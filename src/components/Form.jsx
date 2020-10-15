@@ -33,13 +33,13 @@ const MessageForm = () => {
     <Formik
       initialValues={{ message: '' }}
       onSubmit={async ({ message }, actions) => {
+        actions.setSubmitting(false);
         const time = new Date().toLocaleString('en-US', timeOptions);
         const data = {
           user: userName,
           text: message,
           time,
         };
-        actions.setSubmitting(false);
         await fetchMessage(data, channelId);
         actions.resetForm();
       }}
