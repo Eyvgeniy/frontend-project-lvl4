@@ -38,7 +38,9 @@ const channelsSlice = createSlice({
   },
 });
 
-export const { addChannel, renameChannel, deleteChannel, changeChannel } = channelsSlice.actions;
+export const {
+  addChannel, renameChannel, deleteChannel, changeChannel,
+} = channelsSlice.actions;
 export default channelsSlice.reducer;
 
 export const channelAdd = async (name) => {
