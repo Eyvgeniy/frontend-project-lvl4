@@ -1,31 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import AddChannelModal from './AddChannelModal';
-import RenameChannelModal from './RenameChannelModal';
-import RemoveChannelModal from './RemoveChannelModal';
-import Example from './exampleModal';
+import ModalAdd from './ModalAdd';
+import ModalRename from './ModalRename';
+import ModalDelete from './ModalDelete';
 
 const mapStateToProps = (state) => {
   const {
-    modals: { type, props },
+    modals: { type },
   } = state;
-  return { type, props };
+  return { type };
 };
 
-const Modal = ({ type, props }) => {
-  const getInitialValue = () => ({ channel: props.name });
-
+const Modal = ({ type }) => {
   switch (type) {
     case 'add':
-      return <Example />;
+      return <ModalAdd />;
     case 'rename':
-      return <Example />;
+      return <ModalRename />;
     case 'remove':
-      return <RemoveChannelModal />;
+      return <ModalDelete />;
     case 'none':
       return null;
-    case 'simple':
-      return <Example />;
     default:
       throw Error(`Unknown type of modal ${type}`);
   }
