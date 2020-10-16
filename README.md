@@ -12,7 +12,8 @@ https://warm-spire-27578.herokuapp.com/
 This project was built on Hexlet course for practicing:
 
 - React
-- Redux Toolkit + Redux Forms
+- Redux Toolkit + React-Redux
+- Formik
 - Ajax, REST
 - WebSockets
 - Bootstrap on React
