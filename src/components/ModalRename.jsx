@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import Modal from 'react-bootstrap/Modal';
@@ -26,13 +26,18 @@ const ModalRename = () => {
       .matches(/^[a-z0-9]+$/, i18next.t('errors.channel.alphanumeric')),
   });
 
+  useEffect(() => {
+    const input = document.querySelector('.modal-input');
+    input.focus();
+  });
+
   const formik = useFormik({
     initialValues: {
       channel: data.name,
     },
-    onSubmit: (async ({ channel }) => {
+    onSubmit: async ({ channel }) => {
       await channelRename(channel, data.id);
-    }),
+    },
     validationSchema,
   });
 
@@ -49,12 +54,15 @@ const ModalRename = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.channel}
-            className="w-100"
+            className="w-100 modal-input"
+            disabled={formik.isSubmitting}
           />
-          {formik.errors.channel && formik.touched.channel ? <div className="text-danger">{formik.errors.channel}</div> : null}
+          {formik.errors.channel && formik.touched.channel ? (
+            <div className="text-danger">{formik.errors.channel}</div>
+          ) : null}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" type="submit">
+          <Button variant="secondary" type="submit" disabled={formik.isSubmitting}>
             Rename
           </Button>
           <Button variant="primary" onClick={() => dispatch(closeModal())}>

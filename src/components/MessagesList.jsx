@@ -1,18 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Message from './Message';
 
-const mapStateToProps = (state) => {
-  const { messages } = state;
-  const {
-    channels: { actualId },
-  } = state;
-  const currentMessages = messages.filter(({ channelId }) => channelId === actualId);
-  return { messages: currentMessages };
-};
-
-const MessagesList = (props) => {
-  const { messages } = props;
+const MessagesList = () => {
+  const messages = useSelector((state) => {
+    const {
+      channels: { actualId },
+    } = state;
+    return state.messages.filter(({ channelId }) => channelId === actualId);
+  });
 
   return (
     <ul className="list-unstyled overflow-auto flex-grow-1 mt-auto d-flex flex-column-reverse px-3 mb-0">
@@ -21,4 +17,4 @@ const MessagesList = (props) => {
   );
 };
 
-export default connect(mapStateToProps)(MessagesList);
+export default MessagesList;

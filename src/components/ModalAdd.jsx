@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import Modal from 'react-bootstrap/Modal';
@@ -19,6 +19,11 @@ const ModalAdd = () => {
       .notOneOf(names, i18next.t('errors.channel.existName'))
       .max(15, i18next.t('errors.channel.longName'))
       .matches(/^[a-z0-9]+$/, i18next.t('errors.channel.alphanumeric')),
+  });
+
+  useEffect(() => {
+    const input = document.querySelector('.modal-input');
+    input.focus();
   });
 
   const formik = useFormik({
@@ -44,12 +49,15 @@ const ModalAdd = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.channel}
-            className="w-100"
+            className="w-100 modal-input"
+            disabled={formik.isSubmitting}
           />
-          {formik.errors.channel && formik.touched.channel ? <div className="text-danger">{formik.errors.channel}</div> : null}
+          {formik.errors.channel && formik.touched.channel ? (
+            <div className="text-danger">{formik.errors.channel}</div>
+          ) : null}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" type="submit">
+          <Button variant="secondary" type="submit" disabled={formik.isSubmitting}>
             Add
           </Button>
           <Button variant="primary" onClick={() => dispatch(closeModal())}>

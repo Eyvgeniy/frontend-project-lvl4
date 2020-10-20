@@ -1,17 +1,17 @@
 import React from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import { showModal } from '../slices/modals';
 
-const mapStateToProps = (state) => {
-  const {
-    channels: { actualId, list },
-  } = state;
-  const currentChannel = list.find((c) => c.id === actualId);
-  return { currentChannel };
-};
-const Header = ({ currentChannel }) => {
+const Header = () => {
   const dispatch = useDispatch();
+
+  const currentChannel = useSelector((state) => {
+    const {
+      channels: { actualId, list },
+    } = state;
+    return list.find((c) => c.id === actualId);
+  });
 
   const showRenameModal = (channel) => (e) => {
     e.preventDefault();
@@ -47,4 +47,4 @@ const Header = ({ currentChannel }) => {
   );
 };
 
-export default connect(mapStateToProps)(Header);
+export default Header;

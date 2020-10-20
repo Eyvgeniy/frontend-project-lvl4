@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -24,16 +24,19 @@ const MessageForm = () => {
     return actualId;
   });
 
+  useEffect(() => {
+    const input = document.querySelector('.message-input');
+    input.focus();
+  });
+
   const validationSchema = Yup.object({
-    message: Yup.string()
-      .required(i18next.t('errors.message.emptyMessage')),
+    message: Yup.string().required(i18next.t('errors.message.emptyMessage')),
   });
 
   return (
     <Formik
       initialValues={{ message: '' }}
       onSubmit={async ({ message }, actions) => {
-        actions.setSubmitting(false);
         const time = new Date().toLocaleString('en-US', timeOptions);
         const data = {
           user: userName,
@@ -45,7 +48,6 @@ const MessageForm = () => {
       }}
       validationSchema={validationSchema}
       validateOnBlur={false}
-      validateOnChange={false}
     >
       {(props) => (
         <form id="simpleForm" onSubmit={props.handleSubmit} className="px-3 pb-1">
@@ -55,9 +57,11 @@ const MessageForm = () => {
             onChange={props.handleChange}
             onBlur={props.handleBlur}
             value={props.values.message}
-            className="w-100"
+            className="w-100 message-input"
           />
-          {props.errors.message && props.touched.message ? <div className="text-danger">{props.errors.message}</div> : null}
+          {props.errors.message && props.touched.message ? (
+            <div className="text-danger">{props.errors.message}</div>
+          ) : null}
         </form>
       )}
     </Formik>
