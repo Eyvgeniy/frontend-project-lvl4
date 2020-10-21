@@ -1,26 +1,22 @@
 import React, { useContext } from 'react';
 import { ListGroup, Button } from 'react-bootstrap';
-import { connect, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import cn from 'classnames';
 import { showModal } from '../slices/modals';
 import UserContext from '../UserContext';
 import { changeChannel } from '../slices/channels';
 
-const mapStateToProps = (state) => {
-  const { actualId, list } = state.channels;
-  const currentChannel = list.map((c) => c.id === actualId);
-  return { list, currentChannel };
-};
-
-const mapDispatch = { changeChannel };
-
-// eslint-disable-next-line no-shadow
-const Channels = ({ list, changeChannel, currentChannel }) => {
+const Channels = () => {
+  const data = useSelector((state) => {
+    const { actualId, list } = state.channels;
+    const currentChannel = list.find((c) => c.id === actualId);
+    return { list, currentChannel };
+  });
   const dispatch = useDispatch();
 
   const changeCurrentChannel = (id) => (e) => {
     e.preventDefault();
-    changeChannel({ id });
+    dispatch(changeChannel({ id }));
   };
 
   const showAddModal = (e) => {
@@ -50,10 +46,12 @@ const Channels = ({ list, changeChannel, currentChannel }) => {
         </Button>
       </div>
       <ListGroup varitant="flush">
-        {list.map(({ id, name }) => {
+        {data.list.map(({ id, name }) => {
+          const isActive = id === data.currentChannel.id;
           const btnClass = cn({
             'w-100 text-left px-3 text-light bg-secondary border-0 rounded-0': true,
-            'bg-info ': id === currentChannel.id,
+            'bg-secondary': !isActive,
+            'bg-info ': isActive,
           });
           return (
             <ListGroup.Item key={id} className="border-0 p-0">
@@ -68,4 +66,4 @@ const Channels = ({ list, changeChannel, currentChannel }) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatch)(Channels);
+export default Channels;
