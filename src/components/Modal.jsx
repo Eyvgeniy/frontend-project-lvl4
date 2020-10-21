@@ -1,17 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ModalAdd from './ModalAdd';
 import ModalRename from './ModalRename';
 import ModalDelete from './ModalDelete';
 
-const mapStateToProps = (state) => {
-  const {
-    modals: { type },
-  } = state;
-  return { type };
-};
+const Modal = () => {
+  const { type } = useSelector((state) => state.modals);
 
-const Modal = ({ type }) => {
   switch (type) {
     case 'add':
       return <ModalAdd />;
@@ -26,4 +21,4 @@ const Modal = ({ type }) => {
   }
 };
 
-export default connect(mapStateToProps)(Modal);
+export default Modal;
