@@ -24,14 +24,14 @@ const ModalAdd = () => {
   useEffect(() => {
     const input = document.querySelector('.modal-input');
     input.focus();
-  });
+  }, []);
 
   const formik = useFormik({
     initialValues: {
       channel: '',
     },
-    onSubmit: async ({ channel }) => {
-      await channelAdd(channel);
+    onSubmit: ({ channel }) => {
+      channelAdd(channel);
     },
     validationSchema,
   });
@@ -47,14 +47,11 @@ const ModalAdd = () => {
             name="channel"
             type="text"
             onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
             value={formik.values.channel}
             className="w-100 modal-input"
             disabled={formik.isSubmitting}
           />
-          {formik.errors.channel && formik.touched.channel ? (
-            <div className="text-danger">{formik.errors.channel}</div>
-          ) : null}
+          {formik.errors.channel && <div className="text-danger">{formik.errors.channel}</div>}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" type="submit" disabled={formik.isSubmitting}>
