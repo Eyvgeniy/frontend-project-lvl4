@@ -2,7 +2,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
-import { Formik } from 'formik';
+import { useFormik } from 'formik';
 import i18next from 'i18next';
 import { fetchMessage } from '../slices/messages';
 import UserContext from '../UserContext';
@@ -33,38 +33,33 @@ const MessageForm = () => {
     message: Yup.string().required(i18next.t('errors.message.emptyMessage')),
   });
 
+  const formik = useFormik({
+    initialValues: { message: '' },
+    onSubmit: ({ message }, actions) => {
+      const time = new Date().toLocaleString('en-US', timeOptions);
+      const data = {
+        user: userName,
+        text: message,
+        time,
+      };
+      fetchMessage(data, channelId);
+      actions.resetForm();
+    },
+    validationSchema,
+  });
+
   return (
-    <Formik
-      initialValues={{ message: '' }}
-      onSubmit={async ({ message }, actions) => {
-        const time = new Date().toLocaleString('en-US', timeOptions);
-        const data = {
-          user: userName,
-          text: message,
-          time,
-        };
-        await fetchMessage(data, channelId);
-        actions.resetForm();
-      }}
-      validationSchema={validationSchema}
-      validateOnBlur={false}
-    >
-      {(props) => (
-        <form id="simpleForm" onSubmit={props.handleSubmit} className="px-3 pb-1">
-          <input
-            name="message"
-            type="text"
-            onChange={props.handleChange}
-            onBlur={props.handleBlur}
-            value={props.values.message}
-            className="w-100 message-input"
-          />
-          {props.errors.message && props.touched.message ? (
-            <div className="text-danger">{props.errors.message}</div>
-          ) : null}
-        </form>
-      )}
-    </Formik>
+    <form id="simpleForm" onSubmit={formik.handleSubmit} className="px-3 pb-1">
+      <input
+        name="message"
+        type="text"
+        onChange={formik.handleChange}
+        value={formik.values.message}
+        className="w-100 message-input"
+        disabled={formik.isSubmitting}
+      />
+      {formik.errors.message && <div className="text-danger">{formik.errors.message}</div>}
+    </form>
   );
 };
 
