@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import Modal from 'react-bootstrap/Modal';
@@ -26,9 +26,9 @@ const ModalRename = () => {
       .matches(/^[a-z0-9]+$/, i18next.t('errors.channel.alphanumeric')),
   });
 
+  const input = useRef();
   useEffect(() => {
-    const input = document.querySelector('.modal-input');
-    input.focus();
+    input.current.focus();
   }, []);
 
   const formik = useFormik({
@@ -51,6 +51,7 @@ const ModalRename = () => {
           <input
             name="channel"
             type="text"
+            ref={input}
             onChange={formik.handleChange}
             value={formik.values.channel}
             className="w-100 modal-input"

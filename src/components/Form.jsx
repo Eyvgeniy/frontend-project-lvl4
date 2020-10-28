@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
@@ -24,9 +24,10 @@ const MessageForm = () => {
     return actualId;
   });
 
+  const input = useRef();
+
   useEffect(() => {
-    const input = document.querySelector('.message-input');
-    input.focus();
+    input.current.focus();
   });
 
   const validationSchema = Yup.object({
@@ -53,6 +54,7 @@ const MessageForm = () => {
       <input
         name="message"
         type="text"
+        ref={input}
         onChange={formik.handleChange}
         value={formik.values.message}
         className="w-100 message-input"
