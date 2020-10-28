@@ -35,8 +35,14 @@ const ModalRename = () => {
     initialValues: {
       channel: data.name,
     },
-    onSubmit: async ({ channel }) => {
-      await channelRename(channel, data.id);
+    onSubmit: async ({ channel }, actions) => {
+      try {
+        await channelRename(channel, data.id);
+      } catch (e) {
+        console.log(e);
+        actions.setErrors({ message: i18next.t('errors.channel.internet') });
+        actions.setSubmitting(false);
+      }
     },
     validationSchema,
   });

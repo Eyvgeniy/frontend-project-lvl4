@@ -30,8 +30,14 @@ const ModalAdd = () => {
     initialValues: {
       channel: '',
     },
-    onSubmit: ({ channel }) => {
-      channelAdd(channel);
+    onSubmit: async ({ channel }, actions) => {
+      try {
+        await channelAdd(channel);
+      } catch (e) {
+        console.log(e);
+        actions.setErrors({ message: i18next.t('errors.channel.internet') });
+        actions.setSubmitting(false);
+      }
     },
     validationSchema,
   });

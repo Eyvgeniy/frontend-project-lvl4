@@ -14,6 +14,16 @@ const ModalRename = () => {
   });
 
   const { name } = data;
+  let error = null;
+
+  const handleClick = () => {
+    try {
+      channelDelete(name, data.id);
+    } catch (e) {
+      console.log(e);
+      error = i18next.t('errors.channel.internet');
+    }
+  };
 
   const dispatch = useDispatch();
 
@@ -24,9 +34,10 @@ const ModalRename = () => {
       </Modal.Header>
       <Modal.Body>
         {i18next.t('modals.deleteChannel', { name })}
+        {error && <p className="text-danger">{error}</p>}
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={() => channelDelete(name, data.id)}>
+        <Button variant="secondary" onClick={handleClick}>
           Delete
         </Button>
         <Button variant="primary" onClick={() => dispatch(closeModal())}>
