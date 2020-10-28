@@ -43,8 +43,14 @@ const MessageForm = () => {
         text: message,
         time,
       };
-      fetchMessage(data, channelId);
-      actions.resetForm();
+      try {
+        fetchMessage(data, channelId);
+        actions.resetForm();
+      } catch (err) {
+        console.log(err);
+        actions.setErrors({ message: i18next.t('errors.message.internet') });
+        actions.setSubmitting(false);
+      }
     },
     validationSchema,
   });
