@@ -7,7 +7,29 @@ https://warm-spire-27578.herokuapp.com/
 
 # Slack Chat
 
-## Simple Slack Chat for text messaging, adding, renaming and removing channels.
+## Simple Slack Chat for text messaging, adding, renaming and removing channels.---
+
+### 1. Install dependencies:
+
+```
+$ make install
+```
+### 2. Start project:
+
+```
+$ make start
+```
+### 3. Build project:
+
+```
+$ make build
+```
+### 4. Deploy project:
+
+```
+$ make deploy
+```
+---
 
 This project was built on Hexlet course for practicing:
 
